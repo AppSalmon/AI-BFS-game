@@ -14,13 +14,17 @@ class BFS:
 		self.barriesrs = barriesrs #danh sach vi tri vat can
 
 	def is_valid_move(self, x, y):
+		"""
+		Kiểm tra xem ô đó có thể bfs không
+
+		"""
 		if x < 0 or y < 0:
 			return False
 		if (x, y) in self.barriesrs:
 			return False
 		return True
 
-	def trace(self, start, target):
+	def trace(self, start, target): # (BFS) Trả về một bước 
 		X = [-1, 1, 0, 0]
 		Y = [0, 0, -1, 1]
 		queue = deque([(start, [])])

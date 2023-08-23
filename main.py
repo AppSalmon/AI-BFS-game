@@ -3,7 +3,7 @@ from time import sleep
 from random import randint, sample
 
 
-import  sys
+import sys
 import pygame as pg #sdl to python
 from scripts_game.entities import  PhysicsEntity
 from scripts_game.utils import load_image, load_images
@@ -15,9 +15,9 @@ from scripts_game.action import  Action
 
 
 
-GRID_SIZE = 15
+GRID_SIZE = 15 
 PLAY_SIZE = 750
-NUMBER_CELL = PLAY_SIZE//GRID_SIZE+1
+NUMBER_CELL = PLAY_SIZE//GRID_SIZE
 
 running = True
 GREEN = (0, 200, 0)
@@ -34,15 +34,23 @@ RED = (255, 0, 0)
 # font_small = pygame.font.SysFont('sans', 20)
 # font_big = pygame.font.SysFont('sans', 50)
 
+
+
 class Game:
+	"""
+	
+	Toàn bộ về game
+
+	"""
 	def __init__(self):
 		pygame.init()  #constructor
 		pygame.display.set_caption('X')
 
-		self.screen = pygame.display.set_mode((1000, 670))  # set display game (weight, height)
+		self.screen = pygame.display.set_mode((1000, 750))  # set display game (weight, height)
 		self.clock = pygame.time.Clock()
 
 
+		# Khai báo tài nguyên game
 		self.assets = {
 			'decor': load_images('tiles/decor'),
 			'grass': load_images('tiles/grass'),
@@ -52,7 +60,7 @@ class Game:
 			'monster': "1"
 		}
 
-
+		# Tạo đối tượng người chơi
 		self.player = PhysicsEntity(self, 'player', (0, 9),(GRID_SIZE, GRID_SIZE))
 		self.monster = PhysicsEntity(self, 'monster', (randint(0, NUMBER_CELL), randint(0, NUMBER_CELL)), GRID_SIZE)
 
@@ -60,14 +68,15 @@ class Game:
 		self.bfs_monster = BFS(self.tilemap.get_barries())
 
 
-		self.move_x = [False, False];
-		self.move_y = [False, False];
+		self.move_x = [False, False]; # Bước đi tiếp theo của nhân vật (L, R)
+		self.move_y = [False, False]; # 
 
 		self.action = Action(self, GRID_SIZE, NUMBER_CELL)
 		self.action.gen_apple()
 
-		self.pos = [100, 100]
-		self.pausing = False
+		self.pos = [100, 100] # Để cho dui
+		self.pausing = False # Check thắng thua
+
 	def run(self):
 		while True:
 			# cnt += 1
@@ -80,7 +89,12 @@ class Game:
 			# 	pygame.draw.line(self.screen, WHITE, (i * GRID_SIZE, 0),
 			# 					 (i * GRID_SIZE, PLAY_SIZE))  # Màu, tọa độ đầu, tọa độ cuối
 
-
+			# Vẽ các thành phần của bản đồ từ dữ liệu JSON
+			# for obj in map_data['objects']:
+			# 	pos = obj['position']
+			# 	color = obj.get('color', (255, 255, 255))
+			# 	size = obj.get('size', (20, 20))
+			# 	pygame.draw.rect(screen, color, pygame.Rect(pos[0], pos[1], size[0], size[1]))
 
 			# # Vẽ chướng ngại
 			self.tilemap.render(self.screen)
@@ -144,4 +158,5 @@ class Game:
 			pygame.display.update()
 			self.clock.tick(60)
 
-Game().run()
+game = Game()
+game.run()

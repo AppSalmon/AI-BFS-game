@@ -18,8 +18,8 @@ RED = (255, 0, 0)
 class Action:
     def __init__(self, game,  size, number_cell):
         self.game = game
-        self.point = 0
-        self.size = size
+        self.point = 0 # Điểm người chơi
+        self.size = size # Grid_size
         self.NUMBER_CELL = number_cell
 
 
@@ -27,6 +27,9 @@ class Action:
         return pg.Rect(pos[0], pos[1], 1, 1)
 
     def check_collision(self, pos_player, pos_boss):
+        """
+        Check va chạm bot <=> player
+        """
         self.collisions = False
         entity_rect_player = self.rect(tuple(pos_player))
         entity_rect_boss  = self.rect(tuple(pos_boss))
@@ -36,12 +39,19 @@ class Action:
         return self.collisions
 
     def gen_loc(self):
+        """
+        Random tọa độ
+        """
         return [randint(0, self.NUMBER_CELL - 2), randint(0, self.NUMBER_CELL - 2)]
 
     def gen_apple(self):
         self.apple = self.gen_loc()
 
     def check_point(self, pos_player, surf):
+        """
+        Cộng điểm người chơi và gen táo mới
+
+        """
         if self.check_collision(pos_player, self.apple) == True:
             self.point +=1
             self.gen_apple()
