@@ -7,6 +7,8 @@ dieu kien:
 '''
 
 from collections import  deque
+import time
+
 
 
 class BFS:
@@ -21,6 +23,7 @@ class BFS:
 		return True
 
 	def trace(self, start, target):
+		start_time = time.time()
 		X = [-1, 1, 0, 0]
 		Y = [0, 0, -1, 1]
 		queue = deque([(start, [])])
@@ -29,6 +32,13 @@ class BFS:
 			current, path = queue.popleft()
 			x, y = current
 			if current == target:
+
+				end_time = time.time()
+				# Tính thời gian chạy
+				elapsed_time = end_time - start_time
+				# print("Thời gian chạy:", elapsed_time, "giây")
+				# self.screen.blit(create_text('Time run bfs: ' + str(elapsed_time), (255, 0, 0), 20), (790, 220))
+
 				if not path :
 					return (0, 0)
 				return path[0]

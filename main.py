@@ -47,6 +47,16 @@ background_sand = "../AI-BFS-game/data/images/background/sand.png"
 background_sand = pygame.image.load(background_sand)
 background_sand = pygame.transform.scale(background_sand, (GRID_SIZE, GRID_SIZE))
 
+no_img = "../AI-BFS-game/data/images/player/no.png"
+no_img = pygame.image.load(no_img)
+no_img = pygame.transform.scale(no_img, (GRID_SIZE+20, GRID_SIZE+20))
+
+# Load nhạc
+pygame.mixer.init()
+background_music = pygame.mixer.Sound("../AI-BFS-game/data/music/backgrmusic.mp3")
+background_music.play(-1)
+
+music_no = pygame.mixer.Sound("../AI-BFS-game/data/sfx/dash.wav")
 
 
 
@@ -218,10 +228,21 @@ class Game:
 			# Kiểm tra xem player va chạm monster nhưng player có còn mạng không
 			check_die, check_end_game = self.action.check_collision(self.player.pos, self.monster.pos)
 			if check_die == True and check_end_game == True:
+				self.screen.blit(no_img, (self.player.pos[0]*GRID_SIZE, self.player.pos[1]*GRID_SIZE))
+				self.screen.blit(no_img, (self.player.pos[0]*GRID_SIZE-20, self.player.pos[1]*GRID_SIZE-20))
+				# music_no.play()
 				self.pausing = True
+				sleep(1)
+				
 			elif check_die == True:
+				self.screen.blit(no_img, (self.player.pos[0]*GRID_SIZE, self.player.pos[1]*GRID_SIZE))
+				self.screen.blit(no_img, (self.player.pos[0]*GRID_SIZE-20, self.player.pos[1]*GRID_SIZE-15))
+				music_no.play()
+
 				self.action.lost_life()
 				self.monster.pos = [randint(0, NUMBER_CELL), randint(0, NUMBER_CELL)]
+				
+			
 
 			# Code cũ khi chưa có heart
 			# self.pausing = self.action.check_collision(self.player.pos, self.monster.pos)
@@ -299,10 +320,10 @@ class Game:
 					numbers = []
 					with open('ranking.txt', 'r') as file:
 						for line in file:
-							print(line)
+							# print(line)
 							number = int(line.strip())
 							numbers.append(number)
-					print(numbers)
+					# print(numbers)
 					numbers.append(self.action.point)
 					numbers.sort(reverse=True)  # Sắp xếp từ lớn đến bé
 					numbers_sort = numbers[:5]

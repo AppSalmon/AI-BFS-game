@@ -15,3 +15,8 @@
 - Thay đổi loại monster trong thời gian thực 
 - Thay đổi background trong thời gian thực 
 - Có bxh
+
+- Thêm nhạc
+- random thêm vật cản và tránh vật cản vượt giới hạn
+- Đổi kịch bản của game tự bảo về mình sang giết ma
+

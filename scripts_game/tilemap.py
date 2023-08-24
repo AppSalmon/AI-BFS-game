@@ -4,6 +4,7 @@ draw physic TILES
 '''
 import pygame as pg
 import json
+from random import randint
 
 # List chứa hướng đi
 NEIGHBOR_OFFSETS = [(-1, -1), (-1, 0), (-1, 1),
@@ -35,6 +36,18 @@ class Tilemap:
             # self.tilemap[str(30+i)+';30'] = {'type': 'grass','variant': 1, 'pos': (30+i, 30)}
             self.tilemap[str(30+i)+';30'] = {'type': 'stone','variant': 1, 'pos': (30+i, 30)}
             self.tilemap['35;'+ str(20 + i) ] = {'type': 'stone', 'variant': 1, 'pos': (35, 20+i)}
+        
+        for i in range(5):
+            x = randint(5, 40)
+            y = randint(5, 40)
+            for j in range(randint(2, 4)):
+                self.tilemap[str(x)+';'+ str(y+j)] = {'type': 'stone', 'variant': 1, 'pos': (x, y+j)}
+        for i in range(5):
+            x = randint(5, 40)
+            y = randint(5, 40)
+            for j in range(randint(2, 4)):
+                self.tilemap[str(x+j)+';'+ str(y)] = {'type': 'stone', 'variant': 1, 'pos': (x+j, y)}
+
 
         # Vẽ tường khu vực chơi
         for i in range(1, self.number_cell-1):

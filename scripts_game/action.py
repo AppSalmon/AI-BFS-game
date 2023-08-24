@@ -15,7 +15,8 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
-
+pg.mixer.init()
+music_an = pg.mixer.Sound("../AI-BFS-game/data/music/an.mp3")
 
 class Action:
     def __init__(self, game,  size, number_cell, barries):
@@ -85,6 +86,7 @@ class Action:
                 self.live += 1
             else:
                 self.point +=1
+            music_an.play()
             self.gen_apple()
             self.food_type = randint(1, 10)
 
