@@ -5,6 +5,9 @@ update position
 handel collision
 '''
 import pygame as pg
+from random import randint
+
+
 
 
 class PhysicsEntity:
@@ -16,6 +19,105 @@ class PhysicsEntity:
         self.size = size # Kích thước ô
         self.velocity = [0, 0] # thể hiện tốc độ thay đổi vị trí của thưc thể
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False} #check va cham
+        self.zoom_monster = 50
+
+        # self.monter_main_beauty = "../AI-BFS-game/data/images/monster/beauty.png"
+        # self.monter_main_beauty = pg.image.load(self.monter_main_beauty)
+        # self.monter_beauty = pg.transform.scale(self.monter_main_beauty, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_bird = "../AI-BFS-game/data/images/monster/bird.png"
+        self.monter_main_bird = pg.image.load(self.monter_main_bird)
+        self.monter_bird = pg.transform.scale(self.monter_main_bird, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_dat = "../AI-BFS-game/data/images/monster/dat.png"
+        self.monter_main_dat = pg.image.load(self.monter_main_dat)
+        self.monter_dat = pg.transform.scale(self.monter_main_dat, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_girl1 = "../AI-BFS-game/data/images/monster/girl1.png"
+        self.monter_main_girl1 = pg.image.load(self.monter_main_girl1)
+        self.monter_girl1 = pg.transform.scale(self.monter_main_girl1, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_girl2 = "../AI-BFS-game/data/images/monster/girl2.png"
+        self.monter_main_girl2 = pg.image.load(self.monter_main_girl2)
+        self.monter_girl2 = pg.transform.scale(self.monter_main_girl2, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_luan = "../AI-BFS-game/data/images/monster/luan.png"
+        self.monter_main_luan = pg.image.load(self.monter_main_luan)
+        self.monter_luan = pg.transform.scale(self.monter_main_luan, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_ma = "../AI-BFS-game/data/images/monster/ma.png"
+        self.monter_main_ma = pg.image.load(self.monter_main_ma)
+        self.monter_ma = pg.transform.scale(self.monter_main_ma, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_ma2 = "../AI-BFS-game/data/images/monster/ma2.png"
+        self.monter_main_ma2 = pg.image.load(self.monter_main_ma2)
+        self.monter_ma2 = pg.transform.scale(self.monter_main_ma2, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_nhan = "../AI-BFS-game/data/images/monster/nhan.png"
+        self.monter_main_nhan = pg.image.load(self.monter_main_nhan)
+        self.monter_nhan = pg.transform.scale(self.monter_main_nhan, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_phu1 = "../AI-BFS-game/data/images/monster/phu1.png"
+        self.monter_main_phu1 = pg.image.load(self.monter_main_phu1)
+        self.monter_phu1 = pg.transform.scale(self.monter_main_phu1, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_phu2 = "../AI-BFS-game/data/images/monster/phu2.png"
+        self.monter_main_phu2 = pg.image.load(self.monter_main_phu2)
+        self.monter_phu2 = pg.transform.scale(self.monter_main_phu2, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_shark1 = "../AI-BFS-game/data/images/monster/shark1.png"
+        self.monter_main_shark1 = pg.image.load(self.monter_main_shark1)
+        self.monter_shark1 = pg.transform.scale(self.monter_main_shark1, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_shark2 = "../AI-BFS-game/data/images/monster/shark2.png"
+        self.monter_main_shark2 = pg.image.load(self.monter_main_shark2)
+        self.monter_shark2 = pg.transform.scale(self.monter_main_shark2, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_shark3 = "../AI-BFS-game/data/images/monster/shark3.png"
+        self.monter_main_shark3 = pg.image.load(self.monter_main_shark3)
+        self.monter_shark3 = pg.transform.scale(self.monter_main_shark3, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_tai = "../AI-BFS-game/data/images/monster/tai.png"
+        self.monter_main_tai = pg.image.load(self.monter_main_tai)
+        self.monter_tai = pg.transform.scale(self.monter_main_tai, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_tuanio = "../AI-BFS-game/data/images/monster/tuanio.png"
+        self.monter_main_tuanio = pg.image.load(self.monter_main_tuanio)
+        self.monter_tuanio = pg.transform.scale(self.monter_main_tuanio, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.monter_main_witch = "../AI-BFS-game/data/images/monster/witch.png"
+        self.monter_main_witch = pg.image.load(self.monter_main_witch)
+        self.monter_witch = pg.transform.scale(self.monter_main_witch, (size[0]+self.zoom_monster, size[1]+self.zoom_monster))
+
+        self.list_monster = [self.monter_bird, self.monter_dat, self.monter_girl1, self.monter_girl2, self.monter_luan, self.monter_ma, self.monter_ma2, self.monter_nhan, self.monter_phu1, self.monter_phu2, self.monter_shark1, self.monter_shark2, self.monter_shark3, self.monter_tai, self.monter_tuanio, self.monter_witch]
+        self.index_monster = randint(0, len(self.list_monster)-1)
+        self.final_monster = self.list_monster[self.index_monster]
+        self.final_monster_temp = self.list_monster[self.index_monster]
+
+
+    def update_click_change_monster(self):
+        temp = self.index_monster
+        while temp == self.index_monster:
+            self.index_monster = randint(0, len(self.list_monster)-1)
+
+        self.final_monster = self.list_monster[self.index_monster]
+        self.final_monster_temp = self.list_monster[self.index_monster]
+        return self.index_monster
+        
+
+    # Update và trả về zoom monster
+    def update_monster_size(self, update):
+        if update == -1:
+            self.zoom_monster = max(0, self.zoom_monster-10)
+        elif update == 1:
+            self.zoom_monster = min(10000, self.zoom_monster+10)
+        return self.zoom_monster
+    
+    # Thay đổi kích thước trong thời gian chơi
+    def update_monster_size_real_time(self):
+        self.final_monster_temp = pg.transform.scale(self.final_monster, (self.size[0]+self.zoom_monster, self.size[1]+self.zoom_monster))
+
+
 
     def rect(self):
         return pg.Rect(self.pos[0], self.pos[1], 1, 1)
@@ -74,8 +176,11 @@ class PhysicsEntity:
             surf.blit(self.game.assets['player'], (self.pos[0] * self.size[0],
     									self.pos[1] *  self.size[0],))
         else:
-            pg.draw.rect(surf, (255, 0, 0), (self.pos[0] * self.size,
-    									self.pos[1] *  self.size,
-                                         self.size,  self.size))  # Tọa độ đỉnh, chiều ngang dọc
+            # pg.draw.rect(surf, (255, 0, 0), (self.pos[0] * self.size,
+    		# 							self.pos[1] *  self.size,
+            #                              self.size,  self.size))  # Tọa độ đỉnh, chiều ngang dọc
+            
+            surf.blit(self.final_monster_temp, (self.pos[0] * self.size[0] - self.zoom_monster,
+    									self.pos[1] *  self.size[0]- self.zoom_monster,))
 
-print("Phú code bug rồi")
+print("Tuấn và Phú code ngon rồi")

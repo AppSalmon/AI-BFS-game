@@ -1,0 +1,17 @@
+- Đồ họa đẹp
+- thêm 4 bức tường
+- Thức ăn không gen trong tường nữa
+- Có thể thu nhỏ phóng to monster trong thời gian chơi
+- Random 2 loại đồ ăn
+- Random monster
+- Thêm cúp sau khi game over
+- Làm menu
+- Có số mạng sống
+- Làm rào chắn bảo vệ
+- Thêm cảnh báo warning
+- Thêm tính khoảng cách
+- Thay đổi kích thước monster theo thời gian thực
+- Check hướng di chuyển player
+- Thay đổi loại monster trong thời gian thực 
+- Thay đổi background trong thời gian thực 
+- Có bxh

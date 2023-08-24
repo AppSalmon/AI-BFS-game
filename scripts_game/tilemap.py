@@ -19,18 +19,46 @@ PHYSICS_TILES = {'grass', 'stone'}
 #     map_data = json.load(f)
 
 class Tilemap:
-    def __init__(self, game, tile_size = 19):
+    def __init__(self, game, tile_size = 19, NUMBER_CELL = 10):
         self.game = game
         self.tile_size = tile_size # = Grid size
         self.tilemap = {} # Load tọa độ vật cản, loại vật cản, loại của loại vật cản
         self.offgrid_tiles = [] # Lưu trữ ô xung quanh
+        self.number_cell = NUMBER_CELL
 
-        for i in range(30):
-            # tilemap = i[]
-            self.tilemap[str(3+i)+';10'] = {'type': 'grass','variant': 1, 'pos': (3+i, 10)} # [tọa độ x, y chuỗi] = {loại, kiểu của loại, tọa độ x, y dạng số}
+        # Vẽ vật cản
+        for i in range(15):
+            # self.tilemap[str(3+i)+';10'] = {'type': 'grass','variant': 1, 'pos': (3+i, 10)} # [tọa độ x, y chuỗi] = {loại, kiểu của loại, tọa độ x, y dạng số}
+            self.tilemap[str(3+i)+';10'] = {'type': 'stone','variant': 1, 'pos': (3+i, 10)} # [tọa độ x, y chuỗi] = {loại, kiểu của loại, tọa độ x, y dạng số}
             self.tilemap['10;'+ str(5 + i)] = {'type': 'stone', 'variant': 1, 'pos': (10, 5+i)} 
-            self.tilemap[str(30+i)+';30'] = {'type': 'grass','variant': 1, 'pos': (30+i, 30)}
+
+            # self.tilemap[str(30+i)+';30'] = {'type': 'grass','variant': 1, 'pos': (30+i, 30)}
+            self.tilemap[str(30+i)+';30'] = {'type': 'stone','variant': 1, 'pos': (30+i, 30)}
             self.tilemap['35;'+ str(20 + i) ] = {'type': 'stone', 'variant': 1, 'pos': (35, 20+i)}
+
+        # Vẽ tường khu vực chơi
+        for i in range(1, self.number_cell-1):
+            x = i
+            y = 0
+            self.tilemap[str(x)+';'+str(y)] = {'type': 'stone','variant': 1, 'pos': (x, y)} # [tọa độ x, y chuỗi] = {loại, kiểu của loại, tọa độ x, y dạng số}
+            x = self.number_cell-1
+            y = i
+            self.tilemap[str(x)+';'+str(y)] = {'type': 'stone','variant': 1, 'pos': (x, y)}
+            x = 0
+            y = i
+            self.tilemap[str(x)+';'+str(y)] = {'type': 'stone','variant': 1, 'pos': (x, y)}
+            x = i
+            y = self.number_cell-1
+            self.tilemap[str(x)+';'+str(y)] = {'type': 'stone','variant': 1, 'pos': (x, y)}
+        
+        self.tilemap[str(0)+';'+str(0)] = {'type': 'stone','variant': 1, 'pos': (0, 0)}
+        self.tilemap[str(self.number_cell-1)+';'+str(self.number_cell-1)] = {'type': 'stone','variant': 1, 'pos': (self.number_cell-1, self.number_cell-1)}
+        self.tilemap[str(0)+';'+str(self.number_cell-1)] = {'type': 'stone','variant': 1, 'pos': (0, self.number_cell-1)}
+        self.tilemap[str(self.number_cell-1)+';'+str(0)] = {'type': 'stone','variant': 1, 'pos': (self.number_cell-1, 0)}
+
+        #     self.tilemap[str(30+i)+';30'] = {'type': 'stone','variant': 1, 'pos': (30+i, 30)}
+        #     self.tilemap['35;'+ str(20 + i) ] = {'type': 'stone', 'variant': 1, 'pos': (35, 20+i)}
+            
 
     def get_barries(self):
         '''
@@ -80,4 +108,3 @@ class Tilemap:
             tile = self.tilemap[loc]
             surf.blit(self.game.assets[tile['type']][tile['variant']], (tile['pos'][0]*self.tile_size,
                                                                         tile['pos'][1]*self.tile_size)) # (đường dẫn của ảnh, x*grid_size, y*...)
-
