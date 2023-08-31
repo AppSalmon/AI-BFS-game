@@ -19,7 +19,7 @@ class PhysicsEntity:
         self.size = size # Kích thước ô
         self.velocity = [0, 0] # thể hiện tốc độ thay đổi vị trí của thưc thể
         self.collisions = {'up': False, 'down': False, 'right': False, 'left': False} #check va cham
-        self.zoom_monster = 30
+        self.zoom_monster = 10
     
         # self.monter_main_beauty = "../AI-BFS-game/data/images/monster/beauty.png"
         # self.monter_main_beauty = pg.image.load(self.monter_main_beauty)
@@ -182,5 +182,3 @@ class PhysicsEntity:
             self.final_monster_temp = pg.transform.scale(self.final_monster, (self.size[0]+self.zoom_monster, self.size[1]+self.zoom_monster))
             surf.blit(self.final_monster_temp, (self.pos[0] * self.size[0] - self.zoom_monster,
     									self.pos[1] *  self.size[0]- self.zoom_monster,))
-
-print("Tuấn và Phú code ngon rồi")

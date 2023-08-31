@@ -8,6 +8,8 @@ dieu kien:
 
 from collections import  deque
 import time
+from math import sqrt
+from random import randint
 
 
 
@@ -94,3 +96,35 @@ class DFS:
 					queue.append(((new_x, new_y), path + [(X[i], Y[i])]))
 
 		return None  # No path found
+
+def distance(p1, p2): # Tính khoảng cách 2 điểm
+	return sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
+	
+class H:
+	def __init__(self, barriers):
+		self.barriers = set(barriers) # Chuyển danh sách vật cản thành tập hợp
+		self.max_depth = 1000
+
+	def is_valid_move(self, x, y):
+		if x < 0 or y < 0:
+			return False
+		if (x, y) in self.barriers:
+			return False
+		return True
+
+	def trace(self, start, target):
+		X = [-1, 1, 0, 0]
+		Y = [0, 0, -1, 1]
+		mi = 100000000
+		id = 0
+		for i in range(4):
+			x_new = start[0] + X[i]
+			y_new = start[1] + Y[i]
+			if self.is_valid_move(x_new, y_new):
+				dis = distance((x_new, y_new), target)
+				if dis == 1:
+					return False
+				if dis <= mi:
+					mi = dis
+					id = i
+		return (X[id],Y[id])

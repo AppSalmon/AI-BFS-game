@@ -9,7 +9,7 @@ import pygame as pg #sdl to python
 from scripts_game.entities import  PhysicsEntity
 from scripts_game.utils import load_image, load_images
 from scripts_game.tilemap import Tilemap
-from scripts_game.search import BFS, DFS
+from scripts_game.search import BFS, DFS, H
 from scripts_game.action import  Action
 # from scripts_game.find_away import *
 
@@ -105,7 +105,7 @@ class Game:
 
 		# Tạo đối tượng người chơi
 		self.player = PhysicsEntity(self, 'player', (2, 9),(GRID_SIZE, GRID_SIZE))
-		self.monster = PhysicsEntity(self, 'monster', (randint(0, NUMBER_CELL), randint(0, NUMBER_CELL)), (GRID_SIZE, GRID_SIZE))
+		self.monster = PhysicsEntity(self, 'monster', (randint(2, NUMBER_CELL-2), randint(2, NUMBER_CELL-2)), (GRID_SIZE, GRID_SIZE))
 		self.monster_size_add = 1
 		self.direction = "."
 		self.result1 = ""
@@ -114,7 +114,7 @@ class Game:
 
 
 		self.tilemap = Tilemap(self, tile_size=GRID_SIZE, NUMBER_CELL = NUMBER_CELL)
-		self.bfs_monster = BFS(self.tilemap.get_barries())
+		self.bfs_monster = H(self.tilemap.get_barries()) # Search
 
 
 		self.move_x = [False, False]; # Bước đi tiếp theo của nhân vật (L, R)
@@ -221,8 +221,14 @@ class Game:
 
 			# vẽ boss
 			next_step = self.bfs_monster.trace(tuple(self.monster.pos), tuple(self.player.pos))
+			
+			if next_step == False: # Đối với thuật toán sử dụng hàm H
+				check_die = True
+				self.action.lost_life()
 
-			self.monster.update(self.tilemap, (next_step[0] , next_step[1]))
+			elif next_step != None:
+				self.monster.update(self.tilemap, (next_step[0] , next_step[1]))
+			
 			self.monster.render(self.screen)
 
 			# Kiểm tra xem player va chạm monster nhưng player có còn mạng không
@@ -240,7 +246,7 @@ class Game:
 				music_no.play()
 
 				self.action.lost_life()
-				self.monster.pos = [randint(0, NUMBER_CELL), randint(0, NUMBER_CELL)]
+				self.monster.pos = [randint(2, NUMBER_CELL-2), randint(2, NUMBER_CELL-2)]
 				
 			
 
